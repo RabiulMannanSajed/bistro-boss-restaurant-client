@@ -45,7 +45,7 @@ const Testimonials = () => {
                         )
                     }
                 </Swiper>
-            </>
+            </>  
         </section>
     );
 };

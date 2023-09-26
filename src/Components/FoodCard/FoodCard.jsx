@@ -1,6 +1,6 @@
 
 const FoodCard = ({ item }) => {
-    const { image, price, recipe, name } = item
+    const { image, recipe, name } = item
 
     return (
         <div>

@@ -5,9 +5,21 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useMenu from '../../../hooks/useManu';
 import FoodCard from '../../../Components/FoodCard/FoodCard';
+import { useParams } from 'react-router-dom';
 const Order = () => {
-    const [tabIndex, setTabIndex] = useState(0)
+
+    // this is take to match the tab and where to it's comming from 
+    const categories = ['salad', 'pizza', 'soup', 'dessert', 'drinks']
+
+    // keep the track of it's previous path 
+    const { category } = useParams()
+
+    // which path of category is same to the categories value is match then initialIndex is that value 
+    const initialIndex = categories.indexOf(category);
+
+    const [tabIndex, setTabIndex] = useState(initialIndex)
     const [menu] = useMenu();
+    console.log(category);
     const dessert = menu.filter(item => item.category === 'dessert')
     const soup = menu.filter(item => item.category === 'soup')
     const salad = menu.filter(item => item.category === 'salad')
