@@ -3,6 +3,9 @@ import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { useLocation, useNavigate } from "react-router-dom";
 
+//  item and user info is taken 
+//  this page is working for order Food
+//TODO : Pagination ****
 const FoodCard = ({ item, index }) => {
     const { image, recipe, price, name, _id } = item
     const { user } = useContext(AuthContext);
@@ -12,15 +15,17 @@ const FoodCard = ({ item, index }) => {
     console.log(index);
     const handleAddToCart = (item) => {
         console.log(item);
-        if (user) {
-            const cartItem = { menuItemId: _id, name, price, image,email :user.email }
+        if (user && user.email) {
+
+            const cartItem = { menuItemId: _id, name, price, image, email: user.email }
+            // this is sanding to data base to add this item  (*this post method)
             fetch('http://localhost:5000/carts', {
                 method: "POST",
                 headers: {
                     'content-type': 'application/json'
                 },
                 body: JSON.stringify(cartItem)
-            }) 
+            })
                 .then(res => res.json())
                 .then(data => {
                     if (data.insertedId) {
@@ -44,6 +49,7 @@ const FoodCard = ({ item, index }) => {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Login now !'
             }).then((result) => {
+                // if user is not login then take him to login page 
                 if (result.isConfirmed) {
                     navigate('/login', { state: { from: location } })
                 }

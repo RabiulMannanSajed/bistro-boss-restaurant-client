@@ -18,7 +18,7 @@ const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const from = location.state?.from?.pathname || "/";
+    const from = location.state?.from?.pathname || "/"; // if user location state is not clear the take him to home page 
 
     useEffect(() => { // useEffect use cause this value of captcha will change every time
         loadCaptchaEnginge(6); // how many number this captcha will give 
