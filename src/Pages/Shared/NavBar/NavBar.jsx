@@ -2,14 +2,24 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { FaOpencart } from 'react-icons/fa';
+import useCart from "../../../hooks/useCart";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext)
+
+    // to see those step go to useCart.jsx
+    // 1st step is running here
+    const [cart] = useCart() // cart value pass is an array
+
+    // 2nd step
+    // const [bookingProducts] = useCart()
+
     const handleLogOut = () => {
         logOut()
             .then(() => { })
             .catch(error => alert(error))
     }
+
     const navPotion =
         <>
             <li><Link to="/">Home</Link></li>
@@ -19,7 +29,12 @@ const NavBar = () => {
             <li><Link to='/'>
                 <button className="btn gap-2 ">
                     <FaOpencart></FaOpencart>
-                    <div className="badge badge-secondary">+0</div>
+
+                    {/* this is 1st step */}
+                    <div className="badge badge-secondary">+{cart?.length || 0}</div>
+
+                    {/* this is 2nd step */}
+                    {/* <div className="badge badge-secondary">+{bookingProducts?.length}</div> */}
                 </button></Link></li>
             {
                 user ? <>
