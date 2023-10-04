@@ -27,15 +27,18 @@ const NavBar = () => {
             <li><Link to="/order/salad" >Order Food</Link></li>
             <li><Link to="/secret" >Secret</Link></li>
             <li><Link to='/'>
-                <button className="btn gap-2 ">
-                    <FaOpencart></FaOpencart>
+                <Link to="/dashboard/mycart">
+                    <button className="btn gap-2 ">
+                        <FaOpencart></FaOpencart>
+                        {/* this is 1st step */}
+                        <div className="badge badge-secondary">+{cart?.length || 0}</div>
 
-                    {/* this is 1st step */}
-                    <div className="badge badge-secondary">+{cart?.length || 0}</div>
-
-                    {/* this is 2nd step */}
-                    {/* <div className="badge badge-secondary">+{bookingProducts?.length}</div> */}
-                </button></Link></li>
+                        {/* this is 2nd step */}
+                        {/* <div className="badge badge-secondary">+{bookingProducts?.length}</div> */}
+                    </button>
+                </Link>
+            </Link>
+            </li>
             {
                 user ? <>
                     <button onClick={handleLogOut} className="btn btn-ghost">LogOut</button>
