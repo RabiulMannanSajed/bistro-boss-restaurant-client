@@ -12,6 +12,8 @@ const SignUp = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
     const navigate = useNavigate();
+
+
     const onSubmit = data => {
         console.log(data);
         createUser(data.email, data.password)
@@ -22,9 +24,26 @@ const SignUp = () => {
                 // pass the data of user's name and photoUrl
                 updateUserProfile(data.name, data.photoUrl)
                     .then(() => {
-                        alert("user Update")
-                        reset();
-                        navigate('/'); // after user crete then take him to home page
+                        // those info is sanding to data base  when push in the git hub then don't push this line  
+                        const saveUser = { name: data.name, email: data.email, password: data.password || ' ' }
+                        //     find out the user's name img  
+                        fetch('http://localhost:5000/users', {
+                            method: "POST",
+                            headers: {
+                                'content-type': 'application/json'
+                            },
+                            body: JSON.stringify(saveUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    reset();
+
+                                    alert("user Update")
+                                    navigate('/'); // after user crete then take him to home page
+
+                                }
+                            })
                     })
                     .catch(error => (console.log(error)))
             })
