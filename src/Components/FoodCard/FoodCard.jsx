@@ -12,7 +12,7 @@ const FoodCard = ({ item, index }) => {
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
-    const [, refetch] = useCart(); // this is from useCart.jsx 
+    const [, refetch] = useCart(); // this is from useCart.jsx this is reload this page a  
 
     console.log(index);
     const handleAddToCart = (item) => {

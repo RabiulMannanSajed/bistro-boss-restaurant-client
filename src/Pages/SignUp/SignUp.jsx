@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Helmet } from 'react-helmet-async';
 import { useContext } from 'react';
 import { AuthContext } from '../../providers/AuthProvider';
+import SocialLogin from '../Shared/SocialLogin/SocialLogin';
 
 const SignUp = () => {
 
@@ -110,6 +111,7 @@ const SignUp = () => {
                             </div>
                         </form>
                         <p><small>All ready have an Account <Link className='text-blue-500' to='/login'>Login </Link> </small></p>
+                        <SocialLogin></SocialLogin>
                     </div>
                 </div>
             </div>
