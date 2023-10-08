@@ -1,4 +1,4 @@
-import { FaCalendar, FaShoppingCart, FaWallet, FaHome } from "react-icons/fa";
+import { FaCalendar, FaShoppingCart, FaWallet, FaHome, FaUtensils, FaUsers } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 import useCart from "../hooks/useCart";
 
@@ -25,6 +25,16 @@ const Dashboard = () => {
                         isAdmin ?
                             <>
                                 {/* this is for admin user  if isAdmin === true come here */}
+                                <li><NavLink to='/dashboard/home'><FaHome></FaHome>Admin Home</NavLink></li>
+
+                                <li><NavLink to='/dashboard/reservation'><FaUtensils></FaUtensils>Add Items</NavLink></li>
+
+                                <li><NavLink to='/dashboard/history'><FaWallet></FaWallet>Mange items</NavLink></li>
+                                
+                                <li><NavLink to='/dashboard/history'><FaWallet></FaWallet>Mange Booking</NavLink></li>
+
+                                <li><NavLink to='/dashboard/allusers'><FaUsers></FaUsers>All Users</NavLink></li>
+
                             </>
                             :
                             <>

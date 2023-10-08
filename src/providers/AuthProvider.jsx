@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWith
 import app from "../firebase/firebase.config";
 import { useEffect } from "react";
 import { GoogleAuthProvider } from "firebase/auth";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -44,6 +45,31 @@ const AuthProvider = ({ children }) => {
         signOut(auth);
     }
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            console.log('Current user', currentUser);
+            // get and set token by using post method 
+            /// we can use here fetch but it's a long process so use (axios js) 
+            if (currentUser) {
+                axios.post('http://localhost:5000/jwt', { email: currentUser.email })
+                    .then(data => {
+                        console.log(data.data.token)
+                        localStorage.setItem('access-token', data.data.token)
+                    })
+            }
+            else {
+                localStorage.removeItem('access-token')
+            }
+
+            setLoading(false)
+        })
+        return () => {
+            return unsubscribe();
+        }
+
+    }, [])
+
     // this is pass as value of AuthContext.provider
     const authInfo = {
         user,
@@ -54,17 +80,6 @@ const AuthProvider = ({ children }) => {
         logOut,
         updateUserProfile,
     }
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-            console.log('Current user', currentUser);
-            setLoading(false)
-        })
-        return () => {
-            return unsubscribe();
-        }
-
-    }, [])
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
