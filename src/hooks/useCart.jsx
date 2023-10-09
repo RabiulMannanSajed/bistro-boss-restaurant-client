@@ -1,4 +1,3 @@
-
 import { useQuery } from '@tanstack/react-query'
 import useAxiosSecure from './useAxiosSecure';
 import useAuth from './useAuth';
@@ -10,7 +9,7 @@ const useCart = () => {
     // below part is using form 2nd step 
     // const [bookingProducts, setBookingProducts] = useState([])
 
-    const {user} = useAuth()
+    const { user, loading } = useAuth()
     const [axiosSecure] = useAxiosSecure()
 
     // there is two way to load data from backed/database 
@@ -29,6 +28,7 @@ const useCart = () => {
         //     })
         //     return res.json()
         // },
+        enabled: !loading,
         queryFn: async () => {
             const res = await axiosSecure(`/carts?email=${user?.email}`)
             console.log('res from axios', res)

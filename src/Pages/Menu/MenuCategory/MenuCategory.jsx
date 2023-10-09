@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import Cover from "../../Shared/Cover/Cover";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
 
-const MenuCategory = ({ items, title, img }) => {
 
+const MenuCategory = ({ items, title, img }) => {
+    
     return (
-        <div className="pt-10 pb-10">
+        <div  className="pt-10 pb-10">
             {title && <Cover
                 img={img} title={title}
             ></Cover>}

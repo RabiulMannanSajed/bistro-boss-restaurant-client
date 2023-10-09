@@ -3,11 +3,13 @@ import { Helmet } from "react-helmet-async";
 import { FaTrashAlt, FaUserShield } from "react-icons/fa";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUser = () => {
-
+    const [axiosSecure] = useAxiosSecure()
+    
     const { data: users = [], refetch } = useQuery(['users'], async () => {
-        const res = await fetch('http://localhost:5000/users')
+        const res = await axiosSecure('/users')
         return res.json();
     })
     const handelMakeAdmin = (user) => {
