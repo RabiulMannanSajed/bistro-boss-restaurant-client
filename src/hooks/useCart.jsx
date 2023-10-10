@@ -20,14 +20,6 @@ const useCart = () => {
 
     const { refetch, data: cart = [] } = useQuery({
         queryKey: ['carts', user?.email],
-        // queryFn: async () => {
-        //     const res = await (`http://localhost:5000/carts?email=${user?.email}`, {
-        //         headers: {
-        //             authorization: `bearer ${token}`
-        //         }
-        //     })
-        //     return res.json()
-        // },
         enabled: !loading,
         queryFn: async () => {
             const res = await axiosSecure(`/carts?email=${user?.email}`)
@@ -37,16 +29,7 @@ const useCart = () => {
     })
     return [cart, refetch]
 
-    // /refetch is use for reload data 
-
-    // 2nd step is using normal useEffect and fetch
-    // if use this problem to show added product num 
-    // useEffect(() => {
-    //     fetch(`http://localhost:5000/carts?email=${user?.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setBookingProducts(data))
-    // }, [user?.email])
-    // return [bookingProducts]
+    
 
 }
 
