@@ -56,8 +56,10 @@ const AuthProvider = ({ children }) => {
                     .then(data => {
                         console.log(data.data.token)
                         localStorage.setItem('access-token', data.data.token);
-                        setLoading(false)
-
+                        // after the user give a token then give the time to check to is her token is valid of not 
+                        // if ok then sot loading
+                        
+                        setLoading(false)  
                     })
             }
             else {

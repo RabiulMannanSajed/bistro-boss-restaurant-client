@@ -6,10 +6,10 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUser = () => {
-    const [axiosSecure] = useAxiosSecure()
+    const [axiosSecure] = useAxiosSecure();
     
     const { data: users = [], refetch } = useQuery(['users'], async () => {
-        const res = await axiosSecure('/users')
+        const res = await axiosSecure.get('/users');
         return res.json();
     })
     const handelMakeAdmin = (user) => {
