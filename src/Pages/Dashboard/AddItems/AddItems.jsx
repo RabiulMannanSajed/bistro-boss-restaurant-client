@@ -1,7 +1,7 @@
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import axios from "axios";
+import Swal from "sweetalert2";
 
 
 // this is the way to upload the img in the img data base  
@@ -11,7 +11,7 @@ const img_hosting_token = import.meta.env.VITE_Image_Upload_token;
 
 const AddItems = () => {
     const [axiosSecure] = useAxiosSecure();
-    const { register, handleSubmit, reset } = useForm();
+    const { register, handleSubmit,reset } = useForm();
 
     // this is the way to wright  the hosting code 
     const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`;
@@ -35,11 +35,23 @@ const AddItems = () => {
                     // so make it  int number to use in your work 
                     const newItem = { name, recipe, category, image: imgUrl, price: parseFloat(price) }
                     console.log(newItem);
+
                     // send data to data base by using axios 
                     axiosSecure.post('/menu', newItem)
-                    .then(data =>{
-                        console.log("after posting new item",data);
-                    })
+                        .then(data => {
+                            console.log("after posting new item", data);
+                            if (data.data.insertedId) {
+                                reset(); //this is use to reset the form means make all field empty
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'Item added successfully',
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                })
+
+                            }
+                        })
                 }
             })
     }
