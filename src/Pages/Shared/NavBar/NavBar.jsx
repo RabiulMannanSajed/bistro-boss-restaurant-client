@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
 import { FaOpencart } from 'react-icons/fa';
 import useCart from "../../../hooks/useCart";
+import useAdmin from "../../../hooks/useAdmin";
 
 const NavBar = () => {
     const { user, logOut } = useContext(AuthContext)
-
+    const [isAdmin] = useAdmin();
     // to see those step go to useCart.jsx
     // 1st step is running here
     const [cart] = useCart() // cart value pass is an array
@@ -25,7 +26,15 @@ const NavBar = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/menu" >Our Menu</Link></li>
             <li><Link to="/order/salad" >Order Food</Link></li>
-            <li><Link to="/secret" >Secret</Link></li>
+
+            {
+                isAdmin ?
+                    <li><Link to='/dashboard/adminHome'>Dashboard</Link></li>
+                    :
+                    <li><Link to='/dashboard/userHome'>Dashboard</Link></li>
+
+            }
+            
             <li><Link to='/'>
                 <Link to="/dashboard/mycart">
                     <button className="btn gap-2 ">
