@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const MyCart = () => {
 
     const [cart, refetch] = useCart()
-    // how dose reduce work
+    // how dose reduce work reduce is work like (cumulative  function) 
     const total = cart.reduce((sum, item) => item.price + sum, 0)
     console.log(total);
 

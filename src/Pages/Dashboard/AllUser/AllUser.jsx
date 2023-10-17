@@ -10,7 +10,7 @@ const AllUser = () => {
     
     const { data: users = [], refetch } = useQuery(['users'], async () => {
         const res = await axiosSecure.get('/users');
-        return res.json();
+        return res.data;
     })
     const handelMakeAdmin = (user) => {
         fetch(`http://localhost:5000/users/admin/${user._id}`, {
