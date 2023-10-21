@@ -7,7 +7,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const AllUser = () => {
     const [axiosSecure] = useAxiosSecure();
-    
+
     const { data: users = [], refetch } = useQuery(['users'], async () => {
         const res = await axiosSecure.get('/users');
         return res.data;
@@ -31,8 +31,36 @@ const AllUser = () => {
             })
 
     }
+
+    // delete the user from data base 
     const handelDelete = (user) => {
 
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't to delete user",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://localhost:5000/users/${user._id}`, {
+                    method: 'DELETE'
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.deletedCount > 0) {
+                            refetch();
+                            Swal.fire(
+                                'Deleted!',
+                                'Your file has been deleted.',
+                                'success'
+                            )
+                        }
+                    })
+            }
+        })
     }
     return (
         <div className="w-3/4 ">

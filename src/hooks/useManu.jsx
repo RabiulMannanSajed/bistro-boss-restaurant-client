@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 
 // here this is loading data form database and sending data by return [menu]
 // other component can use it simply 
@@ -28,4 +28,4 @@ const useMenu = () => {
     return [menu, loading, refetch]
 }
 
-export default useMenu
+export default useMenu;
